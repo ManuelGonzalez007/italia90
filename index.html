@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Argentina en Italia 90</title>
+	</head>
+	<body>
+		<style>
+
+			body {
+				background-color: blue;
+				color: blue;
+			}
+
+			#titulo {
+				font-size: 100px;
+				position: absolute;
+				left: 500px;
+				top: 80px;
+			}
+
+			h2 {
+				text-align: center;
+			}
+
+			button {
+				cursor: pointer;
+				color: blue;
+				font-size: 25px;
+				font-weight: bold;
+			}
+
+			img {
+				display: block;
+            	margin: auto;
+            	width: 800px;
+            }
+
+            .hover {
+            	cursor:pointer;
+            }
+			
+			.mySlides {
+            	width: 700px;
+            }
+
+		</style>
+
+		
+		<img id="image" class="hover" onclick="start()" src="image.jpg" alt="Foto de la bandera de Italia">
+
+		<audio id="audio">
+			<source src="audio.mp3" type="audio/mpeg">
+		</audio>
+
+		<button id="playButton" onclick="playAudio()" type="button">Play</button>
+		<button onclick="stopAudio()" type="button">Stop</button> 
+
+		<h1 id="titulo">
+			<strong>
+				<em>ITALIA 90</em>
+            </strong>
+        </h1>
+
+        <img id="image2" class="mySlides">
+
+
+        <script>
+
+
+			var audio = document.getElementById("audio"); 
+			var image = document.getElementById("image");
+			var titulo = document.getElementById("titulo");
+			var ul = document.createElement("ul");
+			var image2 = document.getElementById("image2");
+		
+			var jugadores = ["Nery Pumpido", "Sergio Batista", "Abel Balbo", "José Basualdo", "Edgardo Bauza", "Gabriel Calderon", "Jorge Burruchaga", "Claudio Caniggia", "Gustavo Dezotti", "Diego Armando Maradona", "Néstor Fabbri", "Sergio Goycochea", "Néstor Lorenzo", "Ricardo Giusti", "Pedro Monzón", "Julio Olarticoechea", "Roberto Sensini", "José Serrizuela", "Oscar Ruggeri", "Juan Simón", "Pedro Troglio", "Fabián Cancelarich", "Ángel David Comizzo", "DT Carlos Bilardo"]
+
+			var imagenes = ["image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg", "image7.jpg", "image8.jpg", "image9.jpg", "image10.jpg", "image11.jpg", "image12.jpg", "image13.jpg", "image14.jpg", "image15.jpg", "image16.jpg"]
+			
+			function start() {
+				setTimeout(function(){slideshow()}, 3000);
+				image.src="image1.jpg"
+				image.style.width="100px"
+				titulo.innerHTML="ARGENTINA";
+				titulo.style.color="white";
+				titulo.style.position="absolute";
+				titulo.style.top="10px";
+				titulo.style.left="400px";
+				document.body.appendChild(ul);
+				for(i=0; i < jugadores.length; i++) {
+					var li = document.createElement("li");
+					li.innerHTML = jugadores[i]
+					li.style.color = "white";
+					ul.appendChild(li)
+				}
+				image.onclick="";
+				image.classList.remove("hover");
+			}
+
+			//Se define como global, por si es necesario interrumpir el intervalo más adelante.
+			var timer;
+			function slideshow() {
+				titulo.remove();
+				ul.remove();
+				image2.src = "image2.jpg";
+				timer = window.setInterval(cambiarImagen, 2000);
+			}
+
+			
+			var indexImagen = 0;
+
+    		function cambiarImagen() {
+    			if(indexImagen < imagenes.length) {
+    				image2.src= imagenes[indexImagen];
+					indexImagen++;
+				} else {
+					//mostramos la imagne que está fuera de la lista.
+					image2.src = "image2.jpg";
+					//reseteo el index para que las imágenes se muestren en loop. 
+					indexImagen = 0;
+					
+					//en caso de querer detener el loop, mostramos la 1era imagen de la lista y detenemos el intervalo.
+					//descomentar las 2 lineas de abajo y comentar las de arriba.
+					//image2.src = imagenes[0];
+					//window.clearInterval(timer);
+				}
+			}
+			
+			function playAudio() { 
+				if(audio.paused) {
+					audio.play()
+					playButton.innerHTML = "Pause"
+				} else {
+			    	audio.pause()
+			    	playButton.innerHTML = "Play"
+			    }
+			} 
+		
+			function stopAudio() { 
+			  audio.pause();
+			  audio.currentTime = 0;
+			  playButton.innerHTML = "Play" 
+			} 
+
+			audio.onended = function() {
+				playButton.innerHTML = "Play"
+			};
+
+		</script>
+	</body>
+</html>
+
